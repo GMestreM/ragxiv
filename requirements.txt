@@ -31,6 +31,7 @@ sgmllib3k==1.0.0
 six==1.16.0
 soupsieve==2.6
 tqdm==4.66.4
+types-requests==2.32.0.20240712
 tzdata==2023.3
 urllib3==2.2.2
 virtualenv==20.26.3

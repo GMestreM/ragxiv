@@ -21,11 +21,18 @@
         ```python
         search_by_id = Search(id_list=["1605.08386v1"])
         ```
-- [This undocumented API feature](https://groups.google.com/g/arxiv-api/c/mAFYT2VRpK0?pli=1) can be used to filter by specific dates, but I still don't know how to filter between a range of dates.
+- It seems that [this undocumented API feature](https://groups.google.com/g/arxiv-api/c/mAFYT2VRpK0?pli=1) can be used to filter by specific dates, but there is not clear method to filter between a range of dates.
 
 
 ## Parsing papers
 
 - Instead of parsing the raw content of pdfs, we will use the html versions of the papers
-- HTML versions of arXiv papers [started on 01/12/2023](https://arxiv.org/html/2402.08954v1), so this POC will only use papers from that date onwards
+- HTML versions of arXiv papers [started on 01/12/2023](https://arxiv.org/html/2402.08954v1), so this POC will only use papers from that date onwards.
+- Processing:
+    - HTML versions of arXiv papers contain the main body as the `<article>` tag
+    - Class `ltx_authors` contains the authors, which has already been retrieved as metadata and is not relevant information for the RAG system, so it is deleted.
+    - Class `ltx_bibliography` contains the bibliography, not relevant for the RAG system, so it is deleted.
+    - Class `ltx_figure` contains figures, which cannot be used in our RAG system as it is, so they are deleted.
+    - Class `ltx_appendix` contains appendices, which usually contain math and theorems' proofs, not relevant for the RAG system.
+    - Math equations are removed, from class `ltx_equation` and tag `<math>`.
 - Once the html has been retrieved it is processed until is converted to a more readable content, such as markdown. [Library `markdownify`](https://python.langchain.com/v0.2/docs/integrations/document_transformers/markdownify/) is used for this task.

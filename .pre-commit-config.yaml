@@ -11,10 +11,6 @@ repos:
     hooks:
       - id: black
         language_version: python3 # Should be a command that runs python3.6+
-  - repo: https://github.com/PyCQA/isort
-    rev: 5.13.2
-    hooks:
-      - id: isort
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.6.0
     hooks:
@@ -26,3 +22,4 @@ repos:
     hooks:
       - id: mypy
         args: [--ignore-missing-imports]
+        additional_dependencies: [types-requests]
