@@ -6,3 +6,12 @@ repos:
         entry: bash -c 'eval "$(conda shell.bash hook)" && conda activate ragxiv && pip list --format=freeze > requirements.txt'
         language: system
         pass_filenames: false
+  - repo: https://github.com/psf/black
+    rev: 24.4.2 # Replace by any tag/version: https://github.com/psf/black/tags
+    hooks:
+      - id: black
+        language_version: python3 # Should be a command that runs python3.6+
+  - repo: https://github.com/PyCQA/isort
+    rev: 5.13.2
+    hooks:
+      - id: isort
