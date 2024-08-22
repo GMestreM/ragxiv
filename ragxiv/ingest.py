@@ -131,6 +131,16 @@ def paper_html_to_markdown(paper_id: PaperID, verbose: bool = False) -> str | No
 
 
 def process_html_paper(soup: BeautifulSoup) -> BeautifulSoup:
+    """
+    Parse article from raw html and remove unnecesary sections
+
+    Args:
+        soup (BeautifulSoup): Raw html retrieved from arXiv
+
+    Returns:
+        BeautifulSoup: Processed html after removing unnecesary
+            sections
+    """
     # Find relevant part of article
     article = soup.find("article")
 
@@ -149,7 +159,7 @@ def process_html_paper(soup: BeautifulSoup) -> BeautifulSoup:
     sections_appendix = article.find_all("section", class_="ltx_appendix")
     if sections_appendix:
         for section_appendix in sections_appendix:
-            sections_appendix.decompose()
+            section_appendix.decompose()
 
     # Remove figures
     figures = article.find_all("figure", class_="ltx_figure")
