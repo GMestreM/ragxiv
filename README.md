@@ -1,2 +1,3 @@
-# ragxiv
-Retrieval-Augmented Genearation (RAG) system that leverages academic papers on arXiv as its knowledge base
+# ragXiv: Retrieval-Augmented Genearation with arXiv knowledge base
+
+Retrieval-Augmented Genearation (RAG) system that leverages the vast repository of academic papers on [arXiv](arxiv.org) as its  primary knowledge base.
