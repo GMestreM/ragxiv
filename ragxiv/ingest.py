@@ -2,16 +2,12 @@
 
 import datetime
 from typing import List, Optional, TypedDict
-
 import arxiv
 import requests
-import arxiv
 from bs4 import BeautifulSoup
 from config import ARXIV_FIELDS
 from markdownify import MarkdownConverter
 from tqdm.auto import tqdm
-from typing import TypedDict, Optional, List
-from config import ARXIV_FIELDS
 
 
 class PaperID(TypedDict):
