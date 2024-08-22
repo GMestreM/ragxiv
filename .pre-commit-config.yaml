@@ -1,0 +1,8 @@
+repos:
+  - repo: local
+    hooks:
+      - id: update-requirements
+        name: Update requirements.txt
+        entry: bash -c 'eval "$(conda shell.bash hook)" && conda activate ragxiv && pip list --format=freeze > requirements.txt'
+        language: system
+        pass_filenames: false
