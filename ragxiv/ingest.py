@@ -1,11 +1,13 @@
 """Fetch data from sources and store them into the knowledge base"""
 
+import time
 import datetime
 from typing import List, Optional, TypedDict
 import arxiv
 import requests
 from bs4 import BeautifulSoup
 from config import ARXIV_FIELDS
+from utils import get_user_agent
 from markdownify import MarkdownConverter
 from tqdm.auto import tqdm
 
@@ -105,7 +107,12 @@ def paper_html_to_markdown(paper_id: PaperID, verbose: bool = False) -> str | No
     """
     # Try to fetch html version of paper
     url_html = paper_id["entry_url"].replace("/abs/", "/html/")
-    results = requests.get(url_html)
+    headers = dict()
+    headers["User-Agent"] = get_user_agent()
+    results = requests.get(url_html, headers=headers)
+
+    # 3 seconds delay
+    time.sleep(3)
 
     # If it does not exist, raise error
     if results.status_code != 200:
@@ -132,7 +139,7 @@ def paper_html_to_markdown(paper_id: PaperID, verbose: bool = False) -> str | No
 
 def process_html_paper(soup: BeautifulSoup) -> BeautifulSoup:
     """
-    Parse article from raw html and remove unnecesary sections
+    Parse article from raw html and remove unnecessary sections
 
     Args:
         soup (BeautifulSoup): Raw html retrieved from arXiv

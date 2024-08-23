@@ -40,8 +40,20 @@
 
 ## Chunking
 
-- Before creating the embeddings for each article, the content must be splitted into chunks.
+- Before creating the embeddings for each article, the content must be split into chunks.
+- A initial proof-of-concept will be obtained using `langchain`'s `MarkdownTextSplitter`, a basic `RecursiveCharacterTextSplitter` adapter for Markdown formatting. It tries to keep the paragraph, then the sentences and then the words together as long as possible; Hence prioritizes keeping related information together.
+- Once the retrieval system has been implemented, other advanced alternatives can be further analyzed, such as **Tokenizer Based Splitting** (using `nltk` or `spacy` libraries), or even **Sematic Similarity Based** splitting. Another chunking method is **Propositions Based Splitting**[(detailed in this paper)](https://arxiv.org/pdf/2312.06648.pdf), which utilizes LLM to create chunks by converting paragraphs into multiple list of propositions which are then stored as chunks.
+- The embedding model's maximum chunk size must be taken into account when splitting the article. For `sentence-transformer` models, the maximum chunk size is listed [here](https://www.sbert.net/docs/sentence_transformer/pretrained_models.html#model-overview)
 
 Resources:
+- [Chunking strategies](https://medium.com/@rahulpant.me/chunking-text-splitting-strategies-llms-579ab4ede2eb)
 - [5 levels of text splitting](https://github.com/FullStackRetrieval-com/RetrievalTutorials/blob/main/tutorials/LevelsOfTextSplitting/5_Levels_Of_Text_Splitting.ipynb)
 - [Splitting html files and saving chunks using langchain](https://stackoverflow.com/questions/78481278/splitting-html-file-and-saving-chunks-using-langchain)
+- [Pinecone's chunking considerations](https://www.pinecone.io/learn/chunking-strategies/)
+
+
+## Embeddings
+
+Resources:
+- [Sentence transformers models overview](https://www.sbert.net/docs/sentence_transformer/pretrained_models.html#model-overview)
+- [Sentence transformers in HuggingFace](https://huggingface.co/docs/hub/sentence-transformers)
