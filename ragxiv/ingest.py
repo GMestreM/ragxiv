@@ -6,8 +6,8 @@ from typing import List, Optional, TypedDict
 import arxiv
 import requests
 from bs4 import BeautifulSoup
-from config import ARXIV_FIELDS
-from utils import get_user_agent
+from ragxiv.config import ARXIV_FIELDS
+from ragxiv.utils import get_user_agent
 from markdownify import MarkdownConverter
 from tqdm.auto import tqdm
 
