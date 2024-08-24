@@ -57,3 +57,42 @@ Resources:
 Resources:
 - [Sentence transformers models overview](https://www.sbert.net/docs/sentence_transformer/pretrained_models.html#model-overview)
 - [Sentence transformers in HuggingFace](https://huggingface.co/docs/hub/sentence-transformers)
+
+
+# Postgres as a vector database
+
+## Postgres setup
+
+- We will run postgres inside a docker container, using this command:
+
+    ```bash
+    docker run -d \
+        --name postgres \
+        -e POSTGRES_PASSWORD=mysecretpassword \
+        -v /volume_postgres:/var/lib/postgresql/data \
+        -p 5432:5432 \
+        ankane/pgvector
+    ```
+
+    - The password for this instance is set to `mysecretpassword`
+    - The `ankane/pgvector` Docker image includes both PostgreSQL and the pgvector extension.
+
+- Once the PostgreSQL instance with pgvector is running, I need to enable the extension for the database `ragxiv_db` (this can be done either by command line interface or by a Python script):
+    - Access the PostgreSQL Container:
+    ```bash
+    docker exec -it postgres psql -U postgres
+    ```
+    - Create a Database (if not already done):
+    ```sql
+    CREATE DATABASE ragxiv_db;
+    ```
+    - Connect to the Database:
+    ```sql
+    \c ragxiv_db;
+    ```
+    - Enable the pgvector Extension:
+    ```sql
+    CREATE EXTENSION vector;
+    ```
+ Resources
+ - [Hybrid search in pg_vector](https://github.com/pgvector/pgvector-python/blob/master/examples/hybrid_search.py#L46)
