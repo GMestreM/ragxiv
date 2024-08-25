@@ -41,6 +41,7 @@
 ## Chunking
 
 - Before creating the embeddings for each article, the content must be split into chunks.
+- Valid chunking methods should be included in `ragxiv.embedding.ChunkMethod`
 - A initial proof-of-concept will be obtained using `langchain`'s `MarkdownTextSplitter`, a basic `RecursiveCharacterTextSplitter` adapter for Markdown formatting. It tries to keep the paragraph, then the sentences and then the words together as long as possible; Hence prioritizes keeping related information together.
 - Once the retrieval system has been implemented, other advanced alternatives can be further analyzed, such as **Tokenizer Based Splitting** (using `nltk` or `spacy` libraries), or even **Sematic Similarity Based** splitting. Another chunking method is **Propositions Based Splitting**[(detailed in this paper)](https://arxiv.org/pdf/2312.06648.pdf), which utilizes LLM to create chunks by converting paragraphs into multiple list of propositions which are then stored as chunks.
 - The embedding model's maximum chunk size must be taken into account when splitting the article. For `sentence-transformer` models, the maximum chunk size is listed [here](https://www.sbert.net/docs/sentence_transformer/pretrained_models.html#model-overview)
@@ -53,6 +54,8 @@ Resources:
 
 
 ## Embeddings
+
+- Valid embedding models should be included in `ragxiv.embedding.EmbeddingModel`
 
 Resources:
 - [Sentence transformers models overview](https://www.sbert.net/docs/sentence_transformer/pretrained_models.html#model-overview)
