@@ -34,7 +34,7 @@ class Embedding(TypedDict):
 
 class PaperEmbedding(TypedDict):
     id: str
-    content: List[str]
+    content: str
     embeddings: np.ndarray
 
 
