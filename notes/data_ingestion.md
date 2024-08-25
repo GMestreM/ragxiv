@@ -78,7 +78,7 @@ Resources:
     ```
 
     - The password for this instance is set to `mysecretpassword`
-    - The `ankane/pgvector` Docker image includes both PostgreSQL and the pgvector extension.
+    - The `ankane/pgvector` Docker image includes both PostgreSQL and the `pgvector` extension.
 
 - Once the PostgreSQL instance with pgvector is running, I need to enable the extension for the database `ragxiv_db` (this can be done either by command line interface or by a Python script):
     - Access the PostgreSQL Container:
