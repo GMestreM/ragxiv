@@ -3,7 +3,7 @@
 import os
 import psycopg
 from pgvector.psycopg import register_vector
-from typing import List, Literal, TypedDict
+from typing import List, Literal, Optional, TypedDict
 from sentence_transformers import SentenceTransformer
 from ragxiv.embedding import PaperEmbedding
 
@@ -20,7 +20,7 @@ class SemanticSearch(TypedDict):
     query: str
     table: str
     similarity_metric: Literal["<#>", "<=>", "<->", "<+>"]
-    embedding_model: SentenceTransformer
+    embedding_model: str | SentenceTransformer
     max_documents: int
 
 
@@ -133,12 +133,21 @@ def insert_embedding_data(
 def semantic_search_postgres(
     conn: psycopg.Connection,
     semantic_search_params: SemanticSearch,
+    filter_id: Optional[List[str]] = None,
 ):
     # Cosine distance: <#>
     # negative inner product: <=>
     # L2 distance: <->
     # L1 distance: <+>
     embedding_model = semantic_search_params["embedding_model"]
+    if isinstance(embedding_model, str):
+        from sentence_transformers import SentenceTransformer
+
+        try:
+            embedding_model = SentenceTransformer(embedding_model)
+        except Exception as e:
+            print(e)
+            raise ValueError(f"Unable to load embedding model {embedding_model}")
     query = semantic_search_params["query"]
     table_name = semantic_search_params["table"]
     max_documents = semantic_search_params["max_documents"]
@@ -146,9 +155,17 @@ def semantic_search_postgres(
 
     query_embedding = embedding_model.encode(query)
 
+    register_vector(conn)
+
+    filter_id_query = ""
+    if filter_id:
+        filter_id_query = (
+            f" WHERE article_id IN ({' , '.join(f"'{w}'" for w in filter_id)})"
+        )
+
     with conn.cursor() as cur:
         cur.execute(
-            f"SELECT id, content, embedding FROM {table_name} ORDER BY embedding {similarity_metric} %s LIMIT {max_documents}",
+            f"SELECT article_id, content, embedding FROM {table_name} {filter_id_query} ORDER BY embedding {similarity_metric} %s LIMIT {max_documents}",
             (query_embedding,),
         )
         return cur.fetchall(), query_embedding

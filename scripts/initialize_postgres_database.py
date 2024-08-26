@@ -150,24 +150,3 @@ if conn:
         table_name=TABLE_EMBEDDING_ABSTRACT,
         paper_embedding=list_abstract_embeddings,
     )
-
-
-if False:
-    # Check semantic search
-    from ragxiv.database import semantic_search_postgres, SemanticSearch
-
-    question = "What is explainable AI?"
-    semantic_search_params = SemanticSearch(
-        query=question,
-        table=TABLE_EMBEDDING_ARTICLE,  # TABLE_EMBEDDING_ABSTRACT,
-        similarity_metric="<#>",
-        embedding_model=abstract_embedding["model"],
-        max_documents=5,
-    )
-    semantic_search_results, question_embedding = semantic_search_postgres(
-        conn=conn,
-        semantic_search_params=semantic_search_params,
-    )
-    semantic_search_results[0][1]
-    semantic_search_results[1][1]
-    semantic_search_results[2][1]
