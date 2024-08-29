@@ -13,7 +13,7 @@ from ragxiv.database import (
     SemanticSearch,
 )
 from ragxiv.retrieval import retrieve_similar_documents
-from ragxiv.llm import llm_chat_completion, GroqParams
+from ragxiv.llm import llm_chat_completion, GroqParams, build_rag_prompt
 
 from groq import Groq
 
@@ -125,13 +125,10 @@ if user_query := st.chat_input("Enter your prompt here..."):
             retrieval_method=RETRIEVAL_METHOD,
             retrieval_parameters=semantic_search_hierarchy,
         )
-        prompt = f"""
-        You are an expert in quantitative finance. Answer QUESTION but limit your information to what is inside CONTEXT.
-
-        QUESTION: {relevant_documents['question']}
-
-        CONTEXT: {' \n\n '.join([f"{ document} " for document in relevant_documents["documents"]])}
-        """
+        prompt = build_rag_prompt(
+            user_question=relevant_documents["question"],
+            context=relevant_documents["documents"],
+        )
 
         chat_completion = client.chat.completions.create(
             model="llama-3.1-70b-versatile",

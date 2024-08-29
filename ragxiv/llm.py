@@ -1,7 +1,7 @@
 """Define LLM functionality by connecting to an external API"""
 
 import os
-from typing import Literal, TypedDict, Union
+from typing import Literal, TypedDict, Union, List
 from groq import Groq
 
 
@@ -42,3 +42,14 @@ def groq_chat_completion(query: str, llm_parameters: GroqParams) -> LLMResponse:
         model=f"groq  -  {llm_parameters['model']}",
     )
     return llm_response
+
+
+def build_rag_prompt(user_question: str, context: List[str]) -> str:
+    prompt = f"""
+    You are an expert in quantitative finance. Answer QUESTION but limit your information to what is inside CONTEXT.
+
+    QUESTION: {user_question}
+
+    CONTEXT: {' \n\n '.join([f"{ document} " for document in context])}
+    """
+    return prompt
