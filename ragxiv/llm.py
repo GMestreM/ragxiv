@@ -45,11 +45,12 @@ def groq_chat_completion(query: str, llm_parameters: GroqParams) -> LLMResponse:
 
 
 def build_rag_prompt(user_question: str, context: List[str]) -> str:
+    document_string = " \n\n ".join([f"{ document} " for document in context])
     prompt = f"""
     You are an expert in quantitative finance. Answer QUESTION but limit your information to what is inside CONTEXT.
 
     QUESTION: {user_question}
 
-    CONTEXT: {' \n\n '.join([f"{ document} " for document in context])}
+    CONTEXT: {document_string}
     """
     return prompt
