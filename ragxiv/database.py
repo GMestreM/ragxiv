@@ -160,7 +160,7 @@ def semantic_search_postgres(
     filter_id_query = ""
     if filter_id:
         filter_id_query = (
-            f" WHERE article_id IN ({' , '.join(f"'{w}'" for w in filter_id)})"
+            f" WHERE article_id IN ({', '.join(f"'{w}'" for w in filter_id)})"
         )
 
     with conn.cursor() as cur:
