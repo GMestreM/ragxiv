@@ -178,7 +178,9 @@ if st.session_state.question_state:
             # Define string with suggested papers
             references_response = f"""
             If you would like to learn more about the topic, I suggest you refer to the following papers: \n\n
-{'\n'.join([f'- {url}' for url in relevant_documents['references']])}"""
+            """ + "\n".join(
+                [f"- {url}" for url in relevant_documents["references"]]
+            )
 
             # Use the generator function with st.write_stream
             with st.chat_message("assistant", avatar="🤖"):
