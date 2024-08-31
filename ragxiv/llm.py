@@ -54,3 +54,19 @@ def build_rag_prompt(user_question: str, context: List[str]) -> str:
     CONTEXT: {document_string}
     """
     return prompt
+
+
+def build_retrieval_evaluation_prompt(document: str, number_questions: int) -> str:
+    prompt = f"""
+    You are an expert in quantitative finance. Formulate {number_questions}
+    questions that you would ask based on an academic paper document. The
+    questions should be complete and not too short. If possible, use as
+    fewer words as possible from the document.
+
+    The document: {document}
+
+
+    Provide the output in parsable JSON without using code blocks:
+    ["question 1", "question 2", ..., ]
+    """
+    return prompt
