@@ -130,6 +130,29 @@ def insert_embedding_data(
             )
 
 
+def get_article_id_data(conn: psycopg.Connection, table_name: str) -> List[str]:
+    """Get article ids already present in the database
+
+    Args:
+        conn (psycopg.Connection): Connection to the database
+        table_name (str): Table name where data will be inserted.
+        paper_embedding (List[PaperEmbedding]): List of paper embeddings
+            that will be stored in the database
+
+    Returns:
+        List[str]: List of strings containing the different
+            document ids
+    """
+    with conn.cursor() as curs:
+        query = f"SELECT DISTINCT article_id FROM {table_name}"
+        curs.execute(query)
+        data = curs.fetchall()
+
+        # Format as list of strings
+        document_ids = [docs[0] for docs in data]
+        return document_ids
+
+
 def semantic_search_postgres(
     conn: psycopg.Connection,
     semantic_search_params: SemanticSearch,

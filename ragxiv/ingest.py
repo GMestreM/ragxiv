@@ -27,6 +27,7 @@ def retrieve_arxiv_metadata(
     max_results: Optional[int] = None,
     initial_date: Optional[datetime.datetime] = None,
     last_date: Optional[datetime.datetime] = None,
+    exclude_ids: Optional[List[str]] = None,
     verbose: bool = False,
 ) -> List[PaperID]:
     """
@@ -43,6 +44,8 @@ def retrieve_arxiv_metadata(
             retrieved documents. Defaults to None
         last_date (Optional[datetime]): Last publication date of the
             retrieved documents. Defaults to None
+        exclude_ids (Optional[List[str]]): Article ids already stored in database,
+            they will be excluded. Defaults to None
         verbose (bool): If True, show progress with tqdm. Defaults to False
 
 
@@ -78,6 +81,10 @@ def retrieve_arxiv_metadata(
         if last_date:
             # If published after last_date, ignore
             if result.published > last_date:
+                continue
+        if exclude_ids:
+            # If article id already in database, ignore
+            if result.entry_id in exclude_ids:
                 continue
 
         paper = PaperID(
