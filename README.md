@@ -2,11 +2,9 @@
 
 Retrieval-Augmented Genearation (RAG) system that leverages the vast repository of academic papers on [arXiv](https://arxiv.org) as its  primary knowledge base.
 
----
-
 ## Overview
 
-**ragXiv** is a Retrieval-Augmented Generation (RAG) system designed to facilitate i**nformation extraction and expert-level communication on academic quantitative finance topics**. Leveraging the vast repository of academic papers on arXiv, ragXiv aims to streamline the process of retrieving and synthesizing relevant information from scholarly literature, **making complex quantitative finance topics more accessible**.
+**ragXiv** is a Retrieval-Augmented Generation (RAG) system designed to facilitate **information extraction and expert-level communication on academic quantitative finance topics**. Leveraging the vast repository of academic papers on arXiv, ragXiv aims to streamline the process of retrieving and synthesizing relevant information from scholarly literature, **making complex quantitative finance topics more accessible**.
 
 ### Problem Statement
 
@@ -22,6 +20,8 @@ ragXiv addresses these challenges by implementing a sophisticated **two-step sem
 
     - **Abstract-Level Search**: The system first performs a semantic search between the user’s query and the abstracts of academic papers. This step narrows down the relevant documents, focusing on the most contextually aligned abstracts.
     - **Body-Level Search**: After identifying the most relevant abstracts, ragXiv conducts a second semantic search, this time between the user's query and the body content of the selected papers. This ensures that the most pertinent sections of the papers are considered.
+
+        ![semantic_search](reports/images/academic_papers_rag.jpg)
 
 2. **Contextual Information Extraction**:
 
@@ -42,3 +42,6 @@ ragXiv empowers researchers, students, and professionals in the field of quantit
 ### Future Directions
 
 While this proof-of-concept version of ragXiv is limited to HTML-formatted papers, future iterations will aim to extend support to PDF documents, incorporate broader academic fields, and enhance the LLM's ability to communicate even more nuanced and complex topics.
+
+
+## Setup
