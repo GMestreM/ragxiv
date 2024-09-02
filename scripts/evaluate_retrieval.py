@@ -1,3 +1,5 @@
+"""Showcase how obtain retrieval evaluation metrics for a given retrieval configuration"""
+
 import os
 import sys
 import ast
@@ -87,7 +89,9 @@ if conn is not None:
 
 # Filter evaluation questions using article_id from database
 frame_evaluation_filt = frame_evaluation.loc[document_ids, :]
-frame_evaluation_filt = frame_evaluation_filt.iloc[:4, :]
+
+# hit_rate = (number queries that retrieved the relevant document at the top k searches) / total queries
+# mean_reciprocal_rank = (1/ total_queries) * (sum (1/rank))
 
 
 # Loop over each article id; for each question
@@ -97,6 +101,8 @@ class EvaluationRetrieval(TypedDict):
     original_id: str
     evaluation_question: str
     id_retrieved_documents: List[str]
+    hit_rate: bool
+    mean_reciprocal_rank: float
 
 
 retrieved_documents = []
@@ -120,10 +126,22 @@ for original_id, row in tqdm(
 
         id_retrieved_documents = relevant_documents["references"]
 
+        # Hit rate
+        hit_rate_row = original_id in id_retrieved_documents
+
+        # Mean-reciprocal rank
+        try:
+            position = id_retrieved_documents.index(original_id)
+            mean_reciprocal_rank_row = 1 / (position + 1)
+        except ValueError:
+            mean_reciprocal_rank_row = 0
+
         evaluation = EvaluationRetrieval(
             original_id=original_id,
             evaluation_question=question,
             id_retrieved_documents=id_retrieved_documents,
+            hit_rate=hit_rate_row,
+            mean_reciprocal_rank=mean_reciprocal_rank_row,
         )
         retrieved_documents.append(evaluation)
 
@@ -132,6 +150,10 @@ frame_output = pd.DataFrame(retrieved_documents)
 frame_output.to_csv(
     f"retrieval_evaluation_results_{frame_output.shape[0]}.csv", sep=";"
 )
-# pd.read_csv(f'retrieval_evaluation_results_{frame_output.shape[0]}.csv', sep=';', index_col=[0])
 
-# Obtain metrics
+# Obtain summary metrics
+evaluation_metrics = pd.read_csv(
+    f"retrieval_evaluation_results_1200.csv", sep=";", index_col=[0]
+)
+evaluation_metrics["hit_rate"].mean()  # 0.91
+evaluation_metrics["mean_reciprocal_rank"].mean()  # 0.87
