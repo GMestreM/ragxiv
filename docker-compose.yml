@@ -1,0 +1,29 @@
+services:
+  postgres_db:
+    image: ankane/pgvector
+    container_name: postgres_db
+    env_file:
+      - .env
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PWD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - /pg_db:/var/lib/postgresql/data
+
+  app:
+    build: .
+    container_name: ragxiv
+    env_file: .env
+    depends_on:
+      - postgres_db
+    volumes:
+      - .:/app
+    ports:
+      - "8501:8501"  # Expose the port for the Streamlit app
+    command: >
+      bash -c "
+      streamlit run scripts/example_streamlit_app.py --server.port 8501 --server.address 0.0.0.0"
+
+volumes:
+  postgres_data:

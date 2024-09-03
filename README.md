@@ -45,3 +45,38 @@ While this proof-of-concept version of ragXiv is limited to HTML-formatted paper
 
 
 ## Setup
+
+### Setting up `.env` file
+
+Create a file named .env in the root of your project directory and add the following environment variables:
+
+- `POSTGRES_USER`: `postgres` . _Default PostgreSQL user._
+- `POSTGRES_PWD`: `password` . _Change this to a secure password of your choice._
+- `POSTGRES_DB`: `ragxiv_db` . _The name of the PostgreSQL database._
+- `POSTGRES_HOST`: `postgres_db` . _Since we're using Docker Compose, this should be set to the name of the PostgreSQL service defined in your `docker-compose.yml`_
+- `POSTGRES_PORT`: `5432` . _The port PostgreSQL listens on (default)._
+- `GROQ_API_KEY`: _Obtain a **free API key** from [GROQ Console](https://console.groq.com/). Register for an account, and follow the instructions to generate your API key. Once you have it, paste it here._
+
+### Using `docker-compose`
+
+To set up the project, run the following command:
+
+```
+docker-compose up --build
+```
+
+This process typically takes around 10 minutes and performs the following steps:
+
+- **Starts the PostgreSQL database**: Includes the pg_vector extension.
+- **Initializes the database**: Creates necessary tables and indices (check `init_db.py`).
+- **Fetches documents from arXiv**: Retrieves and stores document embeddings in the database.
+- **Runs the Streamlit UI**: Launches the Streamlit application
+
+Once the setup is complete, you can access the Streamlit UI at: `http://localhost:8501`
+
+#### Additional notes
+
+- Make sure [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/install/) are installed on your system before running the above command.
+- Ensure that your `.env` file is configured correctly with all necessary variables.
+
+### Local

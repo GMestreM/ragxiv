@@ -20,6 +20,7 @@ from ragxiv.embedding import (
 
 load_dotenv(".env")
 
+MAX_RESULTS_ARXIV = 20
 CHUNK_SIZE = 500
 CHUNK_OVERLAP = 50
 CHUNK_METHOD: Final = "MarkdownTextSplitter"
@@ -43,7 +44,9 @@ conn = open_db_connection(connection_params=postgres_connection_params, autocomm
 article_ids_stored = get_article_id_data(conn=conn, table_name=TABLE_EMBEDDING_ARTICLE)
 
 # Fetch new papers from arxiv
-metadata = retrieve_arxiv_metadata(max_results=300, exclude_ids=article_ids_stored)
+metadata = retrieve_arxiv_metadata(
+    max_results=MAX_RESULTS_ARXIV, exclude_ids=article_ids_stored
+)
 
 # Process documents
 markdown_text = []
