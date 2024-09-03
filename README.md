@@ -74,6 +74,12 @@ This process typically takes around 10 minutes and performs the following steps:
 
 Once the setup is complete, you can access the Streamlit UI at: `http://localhost:8501`
 
+Once the project has been built, you can start the services using:
+```
+docker-compose up
+```
+This command will start the containers without rebuilding the images.
+
 #### Additional notes
 
 - Make sure [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/install/) are installed on your system before running the above command.
