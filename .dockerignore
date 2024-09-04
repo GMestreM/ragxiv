@@ -6,3 +6,7 @@ reports/
 
 # Exclude any .csv files
 *.csv
+
+# Exclude additional files
+cloud_env
+local_env

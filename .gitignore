@@ -1,3 +1,6 @@
+# Data files
+*.csv
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -123,8 +126,8 @@ celerybeat.pid
 
 # Environments
 .env
-.local_env
-.cloud_env
+local_env
+cloud_env
 .venv
 env/
 venv/
