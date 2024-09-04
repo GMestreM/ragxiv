@@ -146,6 +146,7 @@ tqdm==4.66.4
 transformers==4.44.2
 triton==3.0.0
 trove-classifiers==2024.7.2
+types-PyYAML==6.0.12.20240808
 types-requests==2.32.0.20240712
 typing_extensions==4.12.2
 typing-inspect==0.9.0

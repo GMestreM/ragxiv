@@ -1,0 +1,11 @@
+# Ingestion parameters. Change the maximum number of articles retrieved
+ingestion:
+  max_documents_arxiv: 20
+  chunk_size: 500
+  chunk_overlap: 50
+  chunk_method: "MarkdownTextSplitter"
+  embedding_model_name: "multi-qa-mpnet-base-dot-v1"
+
+rag:
+  llm_model: "llama-3.1-70b-versatile"
+  retrieval_method: "pg_semantic_abstract+article"

@@ -4,14 +4,21 @@ import os
 import sys
 from typing import Final
 from sentence_transformers import SentenceTransformer
-
+from dotenv import load_dotenv
 from ragxiv.database import (
     open_db_connection,
     create_embedding_table,
     PostgresParams,
 )
+from ragxiv.config import get_config
 
-EMBEDDING_MODEL_NAME: Final = "multi-qa-mpnet-base-dot-v1"
+load_dotenv(".env")
+
+config = get_config()
+if config:
+    config_ingestion = config["ingestion"]
+
+EMBEDDING_MODEL_NAME: Final = config_ingestion["embedding_model_name"]
 
 TABLE_EMBEDDING_ARTICLE = f"embedding_article_{EMBEDDING_MODEL_NAME}".replace("-", "_")
 TABLE_EMBEDDING_ABSTRACT = f"embedding_abstract_{EMBEDDING_MODEL_NAME}".replace(
@@ -42,8 +49,8 @@ conn = open_db_connection(connection_params=postgres_connection_params, autocomm
 if conn:
     conn.execute("CREATE EXTENSION IF NOT EXISTS vector")
 
-    conn.execute(f"DROP TABLE IF EXISTS {TABLE_EMBEDDING_ARTICLE}")
-    conn.execute(f"DROP TABLE IF EXISTS {TABLE_EMBEDDING_ABSTRACT}")
+    # conn.execute(f"DROP TABLE IF EXISTS {TABLE_EMBEDDING_ARTICLE}")
+    # conn.execute(f"DROP TABLE IF EXISTS {TABLE_EMBEDDING_ABSTRACT}")
 
     # Create tables
     create_embedding_table(

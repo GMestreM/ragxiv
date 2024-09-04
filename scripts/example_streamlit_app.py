@@ -15,11 +15,16 @@ from ragxiv.database import (
 )
 from ragxiv.retrieval import retrieve_similar_documents
 from ragxiv.llm import llm_chat_completion, GroqParams, build_rag_prompt
+from ragxiv.config import get_config
 
 from groq import Groq
 
 
 load_dotenv("./.env")
+config = get_config()
+if config:
+    config_ingestion = config["ingestion"]
+    config_rag = config["rag"]
 
 st.set_page_config(
     page_icon="💬",
@@ -28,7 +33,7 @@ st.set_page_config(
 )
 
 # Default embedding parameters
-EMBEDDING_MODEL_NAME: Final = "multi-qa-mpnet-base-dot-v1"
+EMBEDDING_MODEL_NAME: Final = config_ingestion["embedding_model_name"]
 
 TABLE_EMBEDDING_ARTICLE = f"embedding_article_{EMBEDDING_MODEL_NAME}".replace("-", "_")
 TABLE_EMBEDDING_ABSTRACT = f"embedding_abstract_{EMBEDDING_MODEL_NAME}".replace(
@@ -44,9 +49,9 @@ POSTGRES_PORT = os.environ["POSTGRES_PORT"]
 GROQ_API_KEY = os.environ["GROQ_API_KEY"]
 
 LLM_MODEL: Final = "groq"
-LLM_MODEL_PARAMS = GroqParams(api_key=GROQ_API_KEY, model="llama-3.1-70b-versatile")
+LLM_MODEL_PARAMS = GroqParams(api_key=GROQ_API_KEY, model=config_rag["llm_model"])
 
-RETRIEVAL_METHOD: Final = "pg_semantic_abstract+article"
+RETRIEVAL_METHOD: Final = config_rag["retrieval_method"]
 
 client = Groq(api_key=GROQ_API_KEY)
 

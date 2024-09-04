@@ -78,7 +78,7 @@ Once the project has been built, you can start the services using:
 ```
 docker-compose up
 ```
-This command will start the containers without rebuilding the images.
+This command will start the containers, ensure the necessary tables are available, and refresh the data according to `config.yaml` settings. If `max_documents_arxiv` is set to zero, the data will not be updated. Once the refresh is complete, the UI will be accessible.
 
 #### Additional notes
 

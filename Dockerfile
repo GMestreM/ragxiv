@@ -22,5 +22,5 @@ COPY . /app
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Run database initialization scripts
-RUN python init_db.py && \
-    python update_database.py
+# RUN python init_db.py && \
+#     python update_database.py
