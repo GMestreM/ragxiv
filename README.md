@@ -93,3 +93,7 @@ docker-compose exec app python update_database.py
 - Ensure that your `.env` file is configured correctly with all necessary variables.
 
 ### Local
+
+## Project evaluation
+ragXiv is my final project for the 2024 edition of the [LLM Zoomcamp](https://github.com/DataTalksClub/llm-zoomcamp/).
+[This report](https://github.com/GMestreM/ragxiv/blob/main/reports/llm_zoomcamp_final_project_report.md#evaluation-criteria) describes how the project adresses each [evaluation criteria point](https://github.com/DataTalksClub/llm-zoomcamp/blob/main/project.md#evaluation-criteria) for the [2024 edition of LLM Zoomcamp](https://github.com/DataTalksClub/llm-zoomcamp/)
