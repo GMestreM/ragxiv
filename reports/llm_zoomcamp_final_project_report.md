@@ -31,7 +31,6 @@ ragXiv is a Retrieval-Augmented Generation (RAG) system developed to enhance the
 The problem that it tries to solve can be summarized as:
 - The rapid expansion of academic literature as created significant challenges for researchers and professionals. Staying current with the latest developments is increasingly difficult due to the overwhelming volume of published papers.
 - Traditional search engines and academic databases primarily offer keyword-based search functionalities, which often fail to provide contextually relevant or precise results.
--
 - ragXiv seeks to address these challenges by implementing an advanced two-step semantic search and retrieval system,  effectively filtering through the extensive pool of academic papers to identify those most relevant to the user's query.
 - It then generates expert-level explanations, ensuring that users receive clear, concise, and contextually appropriate information tailored to their needs.
 

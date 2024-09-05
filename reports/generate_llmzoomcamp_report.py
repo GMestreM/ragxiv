@@ -38,7 +38,7 @@ markdown_list = [
     "overwhelming volume of published papers."
     "",
     "Traditional search engines and academic databases primarily offer keyword-based "
-    "search functionalities, which often fail to provide contextually relevant or precise results. ",
+    "search functionalities, which often fail to provide contextually relevant or precise results. "
     "",
     "ragXiv seeks to address these challenges by implementing an advanced two-step "
     "semantic search and retrieval system,  effectively filtering through the "
@@ -51,14 +51,16 @@ markdown_list = [
 mdFile.new_list(markdown_list)
 
 mdFile.new_header(level=2, title="RAG flow")
+
 mdFile.new_paragraph(
     "The RAG (Retrieval-Augmented Generation) flow in ragXiv is designed to "
     "integrate both a comprehensive knowledge base and a powerful Large Language Model (LLM) "
     "to deliver precise and expert-level responses to user queries. "
     "As stated in the "
     "[project key features](https://github.com/GMestreM/ragxiv?tab=readme-ov-file#key-features), "
-    "the different elements employed in the RAG flow are:"
+    "the different elements employed in the RAG flow are: "
 )
+
 markdown_list = [
     "**Knowledge base**: The backbone of the ragXiv system is a knowledge base "
     "consisting of scholarly articles sourced from [arXiv](https://arxiv.org/), "
