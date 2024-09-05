@@ -1,6 +1,6 @@
 """Interact with PostgreSQL database"""
 
-import os
+import re
 import psycopg
 from pgvector.psycopg import register_vector
 from typing import List, Literal, Optional, TypedDict
@@ -200,10 +200,20 @@ def keyword_search_postgres(conn: psycopg.Connection, text_search_params: TextSe
     table_name = text_search_params["table"]
     max_documents = text_search_params["max_documents"]
 
+    # Sanitize query: remove invalid characters and sanitize the input for to_tsquery
+    query = re.sub(r"[^a-zA-Z0-9\s]", "", query)
+    # query = re.sub(r'\s+', ' & ', query)  # Replace spaces with `&` for AND
+
     query_use = query.replace(" ", " | ")
+
+    # Remove the trailing operator (and other redundant ones)
+    query_use = re.sub(r"\|\s*$", "", query_use)  # Remove trailing `|`
+    query_use = query_use.replace(" |  | ", " | ")
+    # query_use = re.sub(r'\s*\|\s*', ' | ', query_use)  # Ensure correct spacing around `|`
+
     with conn.cursor() as cur:
         cur.execute(
-            f"SELECT id, content FROM {table_name}, to_tsquery('english', %s) query WHERE to_tsvector('english', content) @@ query ORDER BY ts_rank_cd(to_tsvector('english', content), query) DESC LIMIT {max_documents}",
+            f"SELECT article_id, content, embedding FROM {table_name}, to_tsquery('english', %s) query WHERE to_tsvector('english', content) @@ query ORDER BY ts_rank_cd(to_tsvector('english', content), query) DESC LIMIT {max_documents}",
             (query_use,),
         )
         return cur.fetchall()

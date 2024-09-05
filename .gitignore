@@ -1,6 +1,9 @@
 # Data files
 *.csv
 
+# Don't ignore csv files inside the reports directory
+!reports/data/*.csv
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
