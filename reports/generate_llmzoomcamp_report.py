@@ -17,25 +17,69 @@ mdFile.new_header(level=2, title="Problem description")
 
 mdFile.new_paragraph(
     "The problem that ragXiv tried to solve is described in detail at "
-    "[the README.md file of this repository](https://github.com/GMestreM/ragxiv?tab=readme-ov-file#problem-statement) "
+    "[the README.md file of this repository](https://github.com/GMestreM/ragxiv?tab=readme-ov-file#problem-statement): "
 )
+
+mdFile.new_paragraph(
+    "ragXiv is a Retrieval-Augmented Generation (RAG) system developed to enhance "
+    "the extraction of information and the communication of expert-level knowledge "
+    "in the field of academic quantitative finance. By leveraging the extensive "
+    "repository of academic papers available on arXiv, ragXiv streamlines the process "
+    "of retrieving, synthesizing, and presenting relevant information from scholarly "
+    "literature. This system aims to make complex quantitative finance topics more "
+    "accessible to researchers and professionals alike."
+)
+
+mdFile.new_paragraph("The problem that it tries to solve can be summarized as: ")
+markdown_list = [
+    "The rapid expansion of academic literature "
+    "as created significant challenges for researchers and professionals. "
+    "Staying current with the latest developments is increasingly difficult due to the "
+    "overwhelming volume of published papers."
+    "",
+    "Traditional search engines and academic databases primarily offer keyword-based "
+    "search functionalities, which often fail to provide contextually relevant or precise results. ",
+    "",
+    "ragXiv seeks to address these challenges by implementing an advanced two-step "
+    "semantic search and retrieval system,  effectively filtering through the "
+    "extensive pool of academic papers to identify those most relevant to the user's query. "
+    "",
+    "It then generates expert-level explanations, ensuring that users receive clear, "
+    "concise, and contextually appropriate information tailored to their needs. "
+    "",
+]
+mdFile.new_list(markdown_list)
 
 mdFile.new_header(level=2, title="RAG flow")
 mdFile.new_paragraph(
+    "The RAG (Retrieval-Augmented Generation) flow in ragXiv is designed to "
+    "integrate both a comprehensive knowledge base and a powerful Large Language Model (LLM) "
+    "to deliver precise and expert-level responses to user queries. "
     "As stated in the "
     "[project key features](https://github.com/GMestreM/ragxiv?tab=readme-ov-file#key-features), "
-    "the RAG flow implemented in ragXiv employs:"
+    "the different elements employed in the RAG flow are:"
 )
 markdown_list = [
-    "A **knowledge base** comprised of scholarly articles available at "
-    "[arXiv](https://arxiv.org/), an open-access archive for academic papers. "
+    "**Knowledge base**: The backbone of the ragXiv system is a knowledge base "
+    "consisting of scholarly articles sourced from [arXiv](https://arxiv.org/), "
+    "a widely recognized open-access repository for academic papers. "
+    "This rich repository serves as the primary source of information, encompassing "
+    "a vast array of topics within quantitative finance."
     "",
-    "A **vector database** that uses PostgreSQL [`pg_vector` extension](https://github.com/pgvector/pgvector), "
-    "which is used to store both the vector embeddings of the different documents as well as ",
-    "to perform semantic search to retrieve only documents relevant for a given query.",
+    "**Vector database**: To facilitate efficient retrieval of relevant documents, "
+    "ragXiv employs a vector database powered by PostgreSQL with the "
+    "[`pg_vector` extension](https://github.com/pgvector/pgvector). This database not "
+    "only stores the vector embeddings of the documents but also plays a critical role "
+    "in the semantic search process, retrieving only the most contextually relevant "
+    "documents for a given query."
     "",
-    "A **LLM model** that receives the extracted context from the knowledge base "
-    "and is responsibe for generating clear, concise, and expert-level answers to user queries. "
+    "**LLM integration**: After the relevant documents are identified, the extracted "
+    "context is fed into a Large Language Model (LLM). The LLM is responsible for "
+    "synthesizing the retrieved information and generating responses that are not "
+    "only accurate but also clear, concise, and reflective of expert-level "
+    "understanding. This combination of precise retrieval and advanced natural "
+    "language generation enables ragXiv to effectively bridge the gap between "
+    "complex academic literature and the user need for accessible, high-quality insights."
     "",
 ]
 mdFile.new_list(markdown_list)
@@ -43,29 +87,43 @@ mdFile.new_list(markdown_list)
 mdFile.new_header(level=2, title="Retrieval evaluation")
 
 mdFile.new_paragraph(
-    "Different retrieval methods have been evalutated "
-    "(check [script `evaluate_retrieval.py`](https://github.com/GMestreM/ragxiv/blob/main/scripts/evaluate_retrieval.py)): "
+    "Multiple retrieval methods have been evalutated "
+    "(check [script `evaluate_retrieval.py`](https://github.com/GMestreM/ragxiv/blob/main/scripts/evaluate_retrieval.py)). "
+    " The evaluation focused on comparing different methods for their ability "
+    "to accurately retrieve documents in response to user queries. "
+    "The methods assessed are as follows: "
 )
 markdown_list = [
-    "`pg_semantic_abstract+article`, which performs semantic search in "
-    "two steps: first a semantic search is performed between the user query and the abstracts "
-    "of academic papers; which narrows down the relevant documents and focuses on the most "
-    "contextually aligned documents. Then, a second semantic search is executed, this time "
-    "between the user's query and the body content of the selected papers. "
-    "This ensures that the most pertinent sections of the papers are considered."
+    "`pg_semantic_abstract+article`: This method employs a two-step semantic search. Initially, "
+    " a semantic search is conducted between the user query and the abstracts "
+    "of academic papers. This step effectively narrows down the document pool to those "
+    "most contextually aligned with the query. In the second step, another semantic search "
+    "is performed, this time targeting the body content of the selected papers. "
+    "This approach ensures that not only the most relevant documents are selected "
+    "but also that the most pertinent sections within those documents are considered."
     "",
-    "`pg_semantic_article` performs a single semantic search in the body content "
-    "of all documents stored in the vector database."
+    "`pg_semantic_article`: This method performs a single-step semantic search across the body content "
+    "of all documents stored in the vector database.  While this approach is effective in "
+    "identifying relevant content, it does not benefit from the initial filtering "
+    "step that focuses on document abstracts."
     "",
-    "`pg_text_article` perform a single keyword text search in the body"
-    "content of all documents stored in the vector database. "
+    "`pg_text_article`: This method utilizes a traditional keyword-based text search "
+    "across the body content of all documents stored in the vector database. "
+    "It relies solely on keyword matching and does not leverage semantic understanding, "
+    "which may limit its effectiveness in retrieving contextually relevant information. "
     "",
 ]
 mdFile.new_list(markdown_list)
 mdFile.new_paragraph(
-    "The `hit_rate` and `mean_reciprocal_rank` measures have been used to "
-    "compare the different retrieval methods. The table below shows the scores "
-    "of each method:"
+    "To compare the effectiveness of these retrieval methods, two key metrics "
+    "were used: `hit_rate` and `mean_reciprocal_rank` (MRR)."
+    "The hit rate measures the proportion of relevant documents "
+    "retrieved by the system, whereas MRR evaluates the rank of the first relevant "
+    "document in the search results, with higher values indicating that relevant "
+    "documents appear earlier in the results."
+)
+mdFile.new_paragraph(
+    "The table below summarizes the performance of each retrieval method: "
 )
 retrieval_metrics = pd.read_csv(RETRIEVAL_PATH, sep=";", index_col=[0])
 mdFile.new_paragraph(retrieval_metrics.to_markdown())
@@ -82,24 +140,29 @@ mdFile.new_paragraph("**TO-DO**")
 mdFile.new_header(level=2, title="Interface")
 
 mdFile.new_paragraph(
-    "A Streamlit user interface has been build to ease the interaction with "
-    "the application. It allows the user to interact with the RAG system using a "
-    "chat interface, as illustrated in [this figure](https://github.com/GMestreM/ragxiv/tree/main?tab=readme-ov-file#overview)"
+    "A user-friendly interface using Streamlit has been developed to facilitate the interaction with "
+    "the application.  This interface provides users with an intuitive chat-based platform that simplifies "
+    "the process of querying the RAG system and receiving expert-level responses, as "
+    "illustrated in [this figure](https://github.com/GMestreM/ragxiv/tree/main?tab=readme-ov-file#overview)."
 )
 
 mdFile.new_header(level=2, title="Ingestion pipeline")
 
 mdFile.new_paragraph(
-    "ragXiv implements an automated ingestion pipeline, which retrieves "
-    "new publications that are not present in the database. "
+    "ragXiv features an automated ingestion pipeline designed to periodically "
+    "update its knowledge base with the latest academic publications. "
+    "This pipeline is crucial for ensuring that the system remains current and relevant. "
     "Script [`update_database.py`](https://github.com/GMestreM/ragxiv/blob/main/update_database.py) "
     "is responsible for checking if the new articles are already present in the database, "
     "chunking the documents and storing both the content and its embeddings into "
     "the vector database."
 )
+
 mdFile.new_paragraph(
-    "A `cron-job` is used to automatically run this script at a given schedule, "
-    "which ensures that the knowledge base is always up to date."
+    "By integrating an automated ingestion pipeline with a scheduled `cron-job`, "
+    "ragXiv ensures that its knowledge base is always populated with the most recent "
+    "and relevant academic papers, enhancing the system's ability to provide "
+    "accurate and timely responses. "
 )
 
 mdFile.new_header(level=2, title="Monitoring")
@@ -109,45 +172,73 @@ mdFile.new_paragraph("TO-DO")
 mdFile.new_header(level=2, title="Containerization")
 
 mdFile.new_paragraph(
-    "A `docker-compose.yaml` file is provided, which eases "
-    "the setup stage of the project. The `docker-compose` file "
-    "contains both the main application and their dependencies "
-    "such as the postgres database (with `pg_vector` already installed). "
+    "To streamline the setup and deployment process, the entire ragXiv project is "
+    "fully containerized using Docker, with a comprehensive `docker-compose.yaml` "
+    "file provided. This file encapsulates the entire project, including the main "
+    "ragXiv application and all necessary dependencies, such as a PostgreSQL "
+    "database with the `pg_vector` extension pre-installed, which is essential "
+    "for the system's vector-based retrieval functionalities. "
     ""
 )
 
 mdFile.new_paragraph(
-    "[Instruction](https://github.com/GMestreM/ragxiv/tree/main?tab=readme-ov-file#using-docker-compose) are also provided to set up the project using "
-    "a simple `docker-compose build`; which starts the postgres database, "
-    "initializes it, populates the database with recent documents "
-    "and it launches the Streamlit interface so the user can interact with "
-    "ragXiv."
+    "The Docker Compose setup automates the entire workflow. "
+    "[As per the instructions](https://github.com/GMestreM/ragxiv/tree/main?tab=readme-ov-file#using-docker-compose), "
+    "by running a "
+    "simple `docker-compose up --build`, the following steps are executed "
+    "automatically: "
+    ""
+)
+
+markdown_list = [
+    "The PostgreSQL database is launched and initialized with the necessary schemas and extensions"
+    "",
+    "The database is populated with recent academic documents retrieved from arXiv." "",
+    "The Streamlit interface is launched, allowing users to interact with ragXiv "
+    "immediately upon setup completion. "
+    "",
+]
+mdFile.new_list(markdown_list)
+
+mdFile.new_paragraph(
+    "The containerization ensures that the ragXiv project can be deployed consistently "
+    "across different environments without the need for manual configuration or dependency "
+    "management. This makes the system highly portable and accessible to users with minimal setup effort. "
 )
 
 mdFile.new_header(level=2, title="Reproducibility")
 
 mdFile.new_paragraph(
     "The [setup section](https://github.com/GMestreM/ragxiv/tree/main?tab=readme-ov-file#setup) "
-    "of the project README file describes in detail how to set up the project "
-    "(specifying all environment variables that have to be included in the `.env` file, "
-    "versions for all dependencies are specified in [`requirements.txt`](https://github.com/GMestreM/ragxiv/blob/main/requirements.txt)), run the "
-    "application (either locally or using docker-compose)."
+    "of the project README file provides comprehensive guidance on how to set up ragXiv, which include "
+    "specifying all environment variables that need to be configured in the `.env` file, and managing "
+    "the dependencies required for the project, as they are all listed in the "
+    "[`requirements.txt`](https://github.com/GMestreM/ragxiv/blob/main/requirements.txt) file, including "
+    "version specifications to avoid compatibility issues. Additionally, instructions about how to "
+    "run the application are included (either locally or using `docker-compose`). "
 )
 
 mdFile.new_paragraph(
-    "The dataset that ragXiv uses is free and available at [arXiv](https://arxiv.org/) "
-    "and the application contains functions to retrieve documents. However, as per "
-    "[arXiv terms of use](https://info.arxiv.org/help/api/tou.html), I cannot "
-    "store and serve e-prints from my server, so the only method implemented in ragXiv to "
-    "retrieve arXiv documents is to use their API and store the embeddings in the local "
-    "postgres database. "
+    "The dataset used by ragXiv consists of academic papers freely available "
+    "through  [arXiv](https://arxiv.org/). While the project cannot store and serve "
+    "e-prints directly due to [arXiv terms of use](https://info.arxiv.org/help/api/tou.html), "
+    "it includes functions to retrieve documents via the arXiv API. This approach "
+    "ensures compliance with arXiv policies while allowing users to populate their local "
+    "database with the necessary data. The implemented API-based retrieval system "
+    "allows users to fetch recent documents on demand and store them as embeddings in the "
+    "local PostgreSQL database."
 )
+# mdFile.new_paragraph(
+#     "   > Store and serve arXiv e-prints (PDFs, source files, or other content) "
+#     " from your servers, unless you have the permission of the copyright holder "
+#     " or are permitted to do so by the license with which the e-print was "
+#     " submitted. Note that a very small subset of arXiv e-prints are submitted "
+#     " with licenses that permit redistribution."
+# )
+
 mdFile.new_paragraph(
-    "   > Store and serve arXiv e-prints (PDFs, source files, or other content) "
-    " from your servers, unless you have the permission of the copyright holder "
-    " or are permitted to do so by the license with which the e-print was "
-    " submitted. Note that a very small subset of arXiv e-prints are submitted "
-    " with licenses that permit redistribution."
+    "The project has been tested to ensure that it works as described, and the "
+    "instructions provided are designed to minimize any potential issues during setup or execution"
 )
 
 mdFile.new_header(level=2, title="Bonus points - Cloud deployment")
@@ -155,14 +246,16 @@ mdFile.new_header(level=2, title="Bonus points - Cloud deployment")
 mdFile.new_paragraph(
     "ragXiv has been deployed to the cloud, using [Render Cloud](https://render.com/) "
     "platform and using [Supabase](https://supabase.com/) for the POstgreSQL database used "
-    "by the app. [ragXiv can be accessed here](https://ragxiv.onrender.com/) "
+    "by the app. This deployment allows users to access ragXiv from anywhere without the "
+    "need for local setup. [ragXiv can be accessed from this link](https://ragxiv.onrender.com/) "
 )
 
 mdFile.new_paragraph(
-    " - Please note that this deployment has been made using both "
-    "[Render Cloud](https://render.com/) and [Supabase](https://supabase.com/) "
-    "free tiers, so there may be some delay when accessing the app (as it needs to wake up "
-    "the container) and it may take some time to process the queries."
+    " - **Performance Considerations**: Please note that this deployment uses the free tiers of both "
+    "[Render Cloud](https://render.com/) and [Supabase](https://supabase.com/). "
+    "As a result, there may be some latency when accessing the app, particularly if the container "
+    "needs to be woken up. Additionally, processing queries may take longer than expected due to the "
+    "limitations of the free tier resources."
 )
 
 
