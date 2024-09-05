@@ -62,20 +62,20 @@ mdFile.new_paragraph(
 )
 
 markdown_list = [
-    "**Knowledge base**: The backbone of the ragXiv system is a knowledge base "
+    " **Knowledge base**: The backbone of the ragXiv system is a knowledge base "
     "consisting of scholarly articles sourced from [arXiv](https://arxiv.org/), "
     "a widely recognized open-access repository for academic papers. "
     "This rich repository serves as the primary source of information, encompassing "
     "a vast array of topics within quantitative finance."
     "",
-    "**Vector database**: To facilitate efficient retrieval of relevant documents, "
+    " **Vector database**: To facilitate efficient retrieval of relevant documents, "
     "ragXiv employs a vector database powered by PostgreSQL with the "
     "[`pg_vector` extension](https://github.com/pgvector/pgvector). This database not "
     "only stores the vector embeddings of the documents but also plays a critical role "
     "in the semantic search process, retrieving only the most contextually relevant "
     "documents for a given query."
     "",
-    "**LLM integration**: After the relevant documents are identified, the extracted "
+    " **LLM integration**: After the relevant documents are identified, the extracted "
     "context is fed into a Large Language Model (LLM). The LLM is responsible for "
     "synthesizing the retrieved information and generating responses that are not "
     "only accurate but also clear, concise, and reflective of expert-level "
