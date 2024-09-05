@@ -6,6 +6,8 @@ Retrieval-Augmented Genearation (RAG) system that leverages the vast repository 
 
 **ragXiv** is a Retrieval-Augmented Generation (RAG) system designed to facilitate **information extraction and expert-level communication on academic quantitative finance topics**. Leveraging the vast repository of academic papers on arXiv, ragXiv aims to streamline the process of retrieving and synthesizing relevant information from scholarly literature, **making complex quantitative finance topics more accessible**.
 
+![ragxiv example](./reports/images/ragxiv_example.gif)
+
 ### Problem Statement
 
 The exponential growth of academic literature poses a significant challenge for researchers and professionals in staying up-to-date with the latest developments. Particularly in the field of quantitative finance, where the depth and complexity of the subject matter can be overwhelming, finding and extracting relevant information from numerous academic papers is time-consuming and cumbersome.
