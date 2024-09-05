@@ -80,6 +80,11 @@ docker-compose up
 ```
 This command will start the containers, ensure the necessary tables are available, and refresh the data according to `config.yaml` settings. If `max_documents_arxiv` is set to zero, the data will not be updated. Once the refresh is complete, the UI will be accessible.
 
+A manual database update can be triggered by executing script `update_database.py` inside the running docker container:
+```bash
+docker-compose exec app python update_database.py
+```
+
 #### Additional notes
 
 - Make sure [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/install/) are installed on your system before running the above command.
