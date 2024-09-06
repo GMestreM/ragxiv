@@ -4,10 +4,17 @@ import os
 from typing import Literal, TypedDict, Union, List
 from groq import Groq
 
+GroqModels = Literal[
+    "llama-3.1-70b-versatile",
+    "llama3-70b-8192",
+    "gemma2-9b-it",
+    "llama3-groq-70b-8192-tool-use-preview",
+]
+
 
 class GroqParams(TypedDict):
     api_key: str
-    model: Literal["llama-3.1-70b-versatile"]
+    model: GroqModels
 
 
 LLM = Literal["groq"]

@@ -4,6 +4,7 @@ from mdutils.mdutils import MdUtils
 
 FILE_PATH = os.path.join("reports", "llm_zoomcamp_final_project_report")
 RETRIEVAL_PATH = os.path.join("reports", "data", "comparison_retrieval_methods.csv")
+RAG_PATH = os.path.join("reports", "data", "comparison_rag_methods.csv")
 
 mdFile = MdUtils(file_name=FILE_PATH, title="LLM Zoomcamp - Final Project report")
 
@@ -137,7 +138,47 @@ mdFile.new_paragraph(
 
 mdFile.new_header(level=2, title="RAG evaluation")
 
-mdFile.new_paragraph("**TO-DO**")
+mdFile.new_paragraph(
+    "To determine the most effective Retrieval-Augmented Generation (RAG) "
+    "approach for ragXiv, I tested three different Large Language Models (LLMs) "
+    "to compare their performance: "
+)
+markdown_list = [
+    "llama3-70b-8192",
+    "gemma2-9b-it",
+    "llama-3.1-70b-versatile",
+]
+mdFile.new_list(markdown_list)
+
+mdFile.new_paragraph(
+    "I employed an LLM-as-a-Judge evaluation criterion, which involves the following steps: "
+)
+markdown_list = [
+    "Question and Retrieval: For each user query, the RAG system retrieves relevant "
+    "documents from the knowledge base and generates an answer using one of the tested LLMs. "
+    "",
+    "Judging Relevance: After generating the answer, a different LLM is used to evaluate the "
+    "relevance of the generated response in relation to the original user query."
+    "",
+    "Scoring: The relevance is scored, and the average relevance score is calculated for each LLM."
+    "",
+]
+mdFile.new_list(markdown_list)
+
+mdFile.new_paragraph(
+    "Script `evaluate_rag.py` was used for this task. "
+    "The results obtained are summarized in the following table: "
+)
+
+rag_metrics = pd.read_csv(RAG_PATH, sep=";", index_col=[0])
+mdFile.new_paragraph(rag_metrics.to_markdown())
+
+mdFile.new_paragraph(
+    "As shown in the table, the `llama3-70b-8192` model consistently produced "
+    "the most relevant answers according to the LLM-as-a-Judge evaluation. Based "
+    "on these results, `llama3-70b-8192` has been selected as the preferred LLM model "
+    "for the ragXiv RAG system. "
+)
 
 mdFile.new_header(level=2, title="Interface")
 

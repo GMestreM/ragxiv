@@ -7,5 +7,5 @@ ingestion:
   embedding_model_name: "multi-qa-mpnet-base-dot-v1"
 
 rag:
-  llm_model: "llama-3.1-70b-versatile"
+  llm_model: "llama3-70b-8192"
   retrieval_method: "pg_semantic_abstract+article"

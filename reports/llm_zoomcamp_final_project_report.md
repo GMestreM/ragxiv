@@ -64,7 +64,27 @@ The best results are obtained with the **`pg_semantic_abstract+article`** method
 ## RAG evaluation
 
 
-**TO-DO**
+To determine the most effective Retrieval-Augmented Generation (RAG) approach for ragXiv, I tested three different Large Language Models (LLMs) to compare their performance:
+- llama3-70b-8192
+- gemma2-9b-it
+- llama-3.1-70b-versatile
+
+
+I employed an LLM-as-a-Judge evaluation criterion, which involves the following steps:
+- Question and Retrieval: For each user query, the RAG system retrieves relevant documents from the knowledge base and generates an answer using one of the tested LLMs.
+- Judging Relevance: After generating the answer, a different LLM is used to evaluate the relevance of the generated response in relation to the original user query.
+- Scoring: The relevance is scored, and the average relevance score is calculated for each LLM.
+
+
+Script `evaluate_rag.py` was used for this task. The results obtained are summarized in the following table:
+
+|                 |   llama3-70b-8192 |   gemma2-9b-it |   llama-3.1-70b-versatile |
+|:----------------|------------------:|---------------:|--------------------------:|
+| RELEVANT        |        0.956667   |      0.493333  |                 0.903333  |
+| PARTLY_RELEVANT |        0.0366667  |      0.413333  |                 0.0966667 |
+| NON_RELEVANT    |        0.00666667 |      0.0933333 |               nan         |
+
+As shown in the table, the `llama3-70b-8192` model consistently produced the most relevant answers according to the LLM-as-a-Judge evaluation. Based on these results, `llama3-70b-8192` has been selected as the preferred LLM model for the ragXiv RAG system.
 ## Interface
 
 
