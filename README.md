@@ -94,6 +94,52 @@ docker-compose exec app python update_database.py
 
 ### Local
 
+Follow these steps to set up and run ragXiv locally without using Docker Compose.
+
+- Prepare `.env` file as described above, including all necessary environment variables.
+- Create and Activate a python virtual environment:
+```bash
+python -m venv ragxiv
+```
+- Activate the virtual environment
+    - On Windows:
+    ```
+    ragxiv\Scripts\activate
+    ```
+    - On macOS/Linux
+    ```
+    source ragxiv/bin/activate
+    ```
+- With the virtual environment activated, install the required Python packages:
+```
+pip install -r requirements.txt
+```
+- Start a PostgreSQL container with the `pg_vector` extension using the following command:
+```bash
+docker run -d \
+    --name postgres \
+    -e POSTGRES_PASSWORD=your_password \  # Use the same password as in the .env file
+    -v /your/local/volume:/var/lib/postgresql/data \
+    -p 5432:5432 \
+    ankane/pgvector
+```
+Make sure the container is running before proceeding to the next steps.
+- Run the `init_db.py` script to initialize the database:
+```bash
+python init_db.py
+```
+This script will create the necessary tables and indices in the PostgreSQL database.
+- Populate the database with documents by running the `update_database.py` script:
+```bash
+python update_database.py
+```
+This script reads the configuration file `config.yaml`, fetches documents from arXiv, processes them, and stores their embeddings in the PostgreSQL database.
+- Finally, launch the Streamlit UI to interact with ragXiv:
+```bash
+streamlit run scripts/example_streamlit_app.py
+```
+Once the Streamlit server is up, you can access the UI in your browser at `http://localhost:8501`.
+
 ## Project evaluation
 ragXiv is my final project for the 2024 edition of the [LLM Zoomcamp](https://github.com/DataTalksClub/llm-zoomcamp/).
-[This report](https://github.com/GMestreM/ragxiv/blob/main/reports/llm_zoomcamp_final_project_report.md#evaluation-criteria) describes how the project adresses each [evaluation criteria point](https://github.com/DataTalksClub/llm-zoomcamp/blob/main/project.md#evaluation-criteria) for the [2024 edition of LLM Zoomcamp](https://github.com/DataTalksClub/llm-zoomcamp/)
+This [report](https://github.com/GMestreM/ragxiv/blob/main/reports/llm_zoomcamp_final_project_report.md#evaluation-criteria) describes how the project addresses each [evaluation criteria point](https://github.com/DataTalksClub/llm-zoomcamp/blob/main/project.md#evaluation-criteria) for the [2024 edition of LLM Zoomcamp](https://github.com/DataTalksClub/llm-zoomcamp/)
