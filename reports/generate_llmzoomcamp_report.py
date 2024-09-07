@@ -144,9 +144,9 @@ mdFile.new_paragraph(
     "to compare their performance: "
 )
 markdown_list = [
-    "llama3-70b-8192",
-    "gemma2-9b-it",
-    "llama-3.1-70b-versatile",
+    "`llama3-70b-8192`",
+    "`gemma2-9b-it`",
+    "`llama-3.1-70b-versatile`",
 ]
 mdFile.new_list(markdown_list)
 
@@ -154,13 +154,13 @@ mdFile.new_paragraph(
     "I employed an LLM-as-a-Judge evaluation criterion, which involves the following steps: "
 )
 markdown_list = [
-    "Question and Retrieval: For each user query, the RAG system retrieves relevant "
+    " **Question and Retrieval**: For each user query, the RAG system retrieves relevant "
     "documents from the knowledge base and generates an answer using one of the tested LLMs. "
     "",
-    "Judging Relevance: After generating the answer, a different LLM is used to evaluate the "
+    " **Judging Relevance**: After generating the answer, a different LLM is used to evaluate the "
     "relevance of the generated response in relation to the original user query."
     "",
-    "Scoring: The relevance is scored, and the average relevance score is calculated for each LLM."
+    " **Scoring**: The relevance is scored, and the average relevance score is calculated for each LLM."
     "",
 ]
 mdFile.new_list(markdown_list)
@@ -210,7 +210,26 @@ mdFile.new_paragraph(
 
 mdFile.new_header(level=2, title="Monitoring")
 
-mdFile.new_paragraph("TO-DO")
+mdFile.new_paragraph(
+    "The chat interface build with Streamlit asks users for their "
+    "feedback using a thumbs up/down system. Our app collects this data "
+    "and stores it into the PostgreSQL database, in order to monitor "
+    "the satisfaction of our users and improve the service. Specifically, "
+    "ragXiv collects: "
+)
+
+markdown_list = [
+    " **User ID**: A unique identifier for each user session" "",
+    " **Question**: The query or issue submitted." "",
+    " **Answer**: The response provided by the system." "",
+    " **Satisfaction Rating**: Your thumbs-up or thumbs-down rating of the response."
+    "",
+    " **Documents Retrieved**: Any relevant documents or references provided." "",
+    " **Elapsed Time**: The time taken to generate the response." "",
+    " **Feedback Timestamp**: The exact time when feedback was provided." "",
+]
+mdFile.new_list(markdown_list)
+
 
 mdFile.new_header(level=2, title="Containerization")
 

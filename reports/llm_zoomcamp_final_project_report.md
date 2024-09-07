@@ -65,15 +65,15 @@ The best results are obtained with the **`pg_semantic_abstract+article`** method
 
 
 To determine the most effective Retrieval-Augmented Generation (RAG) approach for ragXiv, I tested three different Large Language Models (LLMs) to compare their performance:
-- llama3-70b-8192
-- gemma2-9b-it
-- llama-3.1-70b-versatile
+- `llama3-70b-8192`
+- `gemma2-9b-it`
+- `llama-3.1-70b-versatile`
 
 
 I employed an LLM-as-a-Judge evaluation criterion, which involves the following steps:
-- Question and Retrieval: For each user query, the RAG system retrieves relevant documents from the knowledge base and generates an answer using one of the tested LLMs.
-- Judging Relevance: After generating the answer, a different LLM is used to evaluate the relevance of the generated response in relation to the original user query.
-- Scoring: The relevance is scored, and the average relevance score is calculated for each LLM.
+-  **Question and Retrieval**: For each user query, the RAG system retrieves relevant documents from the knowledge base and generates an answer using one of the tested LLMs.
+-  **Judging Relevance**: After generating the answer, a different LLM is used to evaluate the relevance of the generated response in relation to the original user query.
+-  **Scoring**: The relevance is scored, and the average relevance score is calculated for each LLM.
 
 
 Script `evaluate_rag.py` was used for this task. The results obtained are summarized in the following table:
@@ -98,7 +98,15 @@ By integrating an automated ingestion pipeline with a scheduled `cron-job`, ragX
 ## Monitoring
 
 
-TO-DO
+The chat interface build with Streamlit asks users for their feedback using a thumbs up/down system. Our app collects this data and stores it into the PostgreSQL database, in order to monitor the satisfaction of our users and improve the service. Specifically, ragXiv collects:
+-  **User ID**: A unique identifier for each user session
+-  **Question**: The query or issue submitted.
+-  **Answer**: The response provided by the system.
+-  **Satisfaction Rating**: Your thumbs-up or thumbs-down rating of the response.
+-  **Documents Retrieved**: Any relevant documents or references provided.
+-  **Elapsed Time**: The time taken to generate the response.
+-  **Feedback Timestamp**: The exact time when feedback was provided.
+
 ## Containerization
 
 
