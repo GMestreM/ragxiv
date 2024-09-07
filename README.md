@@ -136,7 +136,7 @@ python update_database.py
 This script reads the configuration file `config.yaml`, fetches documents from arXiv, processes them, and stores their embeddings in the PostgreSQL database.
 - Finally, launch the Streamlit UI to interact with ragXiv:
 ```bash
-streamlit run scripts/example_streamlit_app.py
+streamlit run streamlit_ui.py
 ```
 Once the Streamlit server is up, you can access the UI in your browser at `http://localhost:8501`.
 
