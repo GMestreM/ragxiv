@@ -9,6 +9,7 @@ from ragxiv.database import (
     open_db_connection,
     create_embedding_table,
     PostgresParams,
+    create_user_feedback_table,
 )
 from ragxiv.config import get_config
 
@@ -62,6 +63,9 @@ if conn:
         conn=conn,
         table_name=TABLE_EMBEDDING_ABSTRACT,
         embedding_dimension=word_embedding_dimension,
+    )
+    create_user_feedback_table(
+        conn=conn,
     )
     print("Database initialized")
 else:
