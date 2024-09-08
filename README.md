@@ -90,6 +90,17 @@ A manual database update can be triggered by executing script `update_database.p
 docker-compose exec app python update_database.py
 ```
 
+The monitoring dashboard can be executed using the following command:
+```bash
+docker-compose exec app streamlit run streamlit_feedback_monitor.py --server.port 8500 --server.address 0.0.0.0
+```
+The Streamlit monitoring dashboard can be accessed at `http://localhost:8500`. The dashboard currently monitors:
+- `User Ratings Distribution`: A bar chart visualizing the count of thumbs up, thumbs down, and no rating values.
+- `Feedback Over Time`: A line chart showing the number of feedback entries over time, grouped by date.
+- `Average Response Time`: A line chart showing the average elapsed time (in seconds) for generating responses, grouped by date.
+- `Top Retrieved Documents`: A bar chart displaying the top 10 most frequently retrieved documents.
+- `Frequent User Queries`: A bar chart showing the 10 most common words found in user queries.
+
 #### Additional notes
 
 - Make sure [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/install/) are installed on your system before running the above command.
@@ -142,6 +153,17 @@ This script reads the configuration file `config.yaml`, fetches documents from a
 streamlit run streamlit_ui.py
 ```
 Once the Streamlit server is up, you can access the UI in your browser at `http://localhost:8501`.
+
+The monitoring dashboard can be executed using the following command:
+```bash
+streamlit run streamlit_feedback_monitor.py --server.port 8500 --server.address 0.0.0.0
+```
+The Streamlit monitoring dashboard can be accessed at `http://localhost:8500`. The dashboard currently monitors:
+- `User Ratings Distribution`: A bar chart visualizing the count of thumbs up, thumbs down, and no rating values.
+- `Feedback Over Time`: A line chart showing the number of feedback entries over time, grouped by date.
+- `Average Response Time`: A line chart showing the average elapsed time (in seconds) for generating responses, grouped by date.
+- `Top Retrieved Documents`: A bar chart displaying the top 10 most frequently retrieved documents.
+- `Frequent User Queries`: A bar chart showing the 10 most common words found in user queries.
 
 ## Configuration
 

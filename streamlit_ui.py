@@ -251,6 +251,7 @@ If you would like to learn more about the topic, I suggest you refer to the foll
 if st.session_state.response is not None:
     # Set correct user feedback selection
     st.session_state.user_feedback["response"] = st.session_state.response
+    st.session_state.user_feedback["thumbs"] = st.session_state.response
     print(st.session_state.user_feedback)
 
     # Now it can be stored in a database (or appended to a list)

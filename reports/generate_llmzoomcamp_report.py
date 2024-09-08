@@ -231,6 +231,26 @@ markdown_list = [
 mdFile.new_list(markdown_list)
 
 
+mdFile.new_paragraph(
+    "File `streamlit_feedback_monitor.py` defines a Streamlit dashboard used to "
+    "monitor user feedback using different charts. Currently these 5 charts are "
+    "being used: "
+)
+
+markdown_list = [
+    " `User Ratings Distribution`: A bar chart visualizing the count of thumbs up, thumbs down, and no rating values."
+    "",
+    " `Feedback Over Time`: A line chart showing the number of feedback entries over time, grouped by date."
+    "",
+    " `Average Response Time`: A line chart showing the average elapsed time (in seconds) for generating responses, grouped by date."
+    "",
+    " `Top Retrieved Documents`: A bar chart displaying the top 10 most frequently retrieved documents."
+    "",
+    " `Frequent User Queries`: A bar chart showing the 10 most common words found in user queries."
+    "",
+]
+mdFile.new_list(markdown_list)
+
 mdFile.new_header(level=2, title="Containerization")
 
 mdFile.new_paragraph(

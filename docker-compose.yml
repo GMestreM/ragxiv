@@ -28,6 +28,7 @@ services:
       - .:/app
     ports:
       - "8501:8501"  # Expose the port for the Streamlit app
+      - "8500:8500"  # Expose the port for the Streamlit monitor
     command: >
       bash -c "
       python init_db.py &&
