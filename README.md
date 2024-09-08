@@ -45,6 +45,9 @@ ragXiv empowers researchers, students, and professionals in the field of quantit
 
 While this proof-of-concept version of ragXiv is limited to HTML-formatted papers, future iterations will aim to extend support to PDF documents, incorporate broader academic fields, and enhance the LLM's ability to communicate even more nuanced and complex topics.
 
+## Project evaluation
+ragXiv is my final project for the 2024 edition of the [LLM Zoomcamp](https://github.com/DataTalksClub/llm-zoomcamp/).
+This [report](https://github.com/GMestreM/ragxiv/blob/main/reports/llm_zoomcamp_final_project_report.md#evaluation-criteria) describes how the project addresses each [evaluation criteria point](https://github.com/DataTalksClub/llm-zoomcamp/blob/main/project.md#evaluation-criteria) for the [2024 edition of LLM Zoomcamp](https://github.com/DataTalksClub/llm-zoomcamp/)
 
 ## Setup
 
@@ -140,6 +143,19 @@ streamlit run streamlit_ui.py
 ```
 Once the Streamlit server is up, you can access the UI in your browser at `http://localhost:8501`.
 
-## Project evaluation
-ragXiv is my final project for the 2024 edition of the [LLM Zoomcamp](https://github.com/DataTalksClub/llm-zoomcamp/).
-This [report](https://github.com/GMestreM/ragxiv/blob/main/reports/llm_zoomcamp_final_project_report.md#evaluation-criteria) describes how the project addresses each [evaluation criteria point](https://github.com/DataTalksClub/llm-zoomcamp/blob/main/project.md#evaluation-criteria) for the [2024 edition of LLM Zoomcamp](https://github.com/DataTalksClub/llm-zoomcamp/)
+## Configuration
+
+The `config.yaml` file is used to configure key aspects of the ragXiv system, including document ingestion and the retrieval-augmented generation (RAG) process.
+
+### `ingestion` Section
+
+- `max_documents_arxiv`: Defines the maximum number of new documents to fetch from arXiv for processing and updating the vector database.
+- `chunk_size`: Specifies the size of each text chunk (in tokens or characters) when breaking down documents for embedding.
+- `chunk_overlap`: Indicates the overlap between consecutive chunks to ensure continuity and context preservation.
+- `chunk_method`: Determines the method used to split the documents into chunks. For ragXiv, the `"MarkdownTextSplitter"` is used to respect document structure during chunking.
+- `embedding_model_name`: The name of the model used to generate vector embeddings for the document chunks. This is essential for enabling - semantic search within the RAG system.
+
+### `RAG` Section
+
+- `llm_model`: Specifies the Large Language Model (LLM) used to generate the final answers based on the retrieved document context. For ragXiv, `"llama3-70b-8192"` is used (as this is the model that obtained the highest score in the [`RAG evaluation`](https://github.com/GMestreM/ragxiv/blob/main/reports/llm_zoomcamp_final_project_report.md#rag-evaluation)) section.
+- `retrieval_method`: Indicates the retrieval strategy employed to fetch relevant documents from the vector database. The `"pg_semantic_abstract+article"` method uses a two-step approach, first searching abstracts and then the full articles to ensure highly relevant context is provided to the LLM. This was the highest scoring method in the [`retrieval evaluation`](https://github.com/GMestreM/ragxiv/blob/main/reports/llm_zoomcamp_final_project_report.md#retrieval-evaluation) section.
